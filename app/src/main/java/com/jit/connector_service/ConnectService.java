@@ -65,7 +65,7 @@ public class ConnectService extends Service {
 
         //We call the method that will work with the UI
         //through the runOnUiThread method.
-        this.runOnUiThread(Timer_Tick);
+        this(Timer_Tick);
     }
 
 
@@ -82,21 +82,21 @@ public class ConnectService extends Service {
                 wifi.setWifiEnabled(false);
 
                 // Check Hotspot on or not
-                b = ApManager.isApOn(WiFiDirectActivity.this);
+                b = ApManager.isApOn(ConnectService.this);
                 if (!b) {
-                    ApManager.configApState(WiFiDirectActivity.this);
+                    ApManager.configApState(ConnectService.this);
                 }
-                Toast.makeText(WiFiDirectActivity.this, "Hotspot Active", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConnectService.this, "Hotspot Active", Toast.LENGTH_SHORT).show();
             } else {
                 // Change Hotspot State and enable WIFI to true
-                ApManager.configApState(WiFiDirectActivity.this);
+                ApManager.configApState(ConnectService.this);
                 wifi.setWifiEnabled(true);
-                Toast.makeText(WiFiDirectActivity.this, "Wifi Active", Toast.LENGTH_SHORT).show();
-                Toast.makeText(WiFiDirectActivity.this, "Searching for DisarmHotspot !!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConnectService.this, "Wifi Active", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConnectService.this, "Searching for DisarmHotspot !!!!", Toast.LENGTH_SHORT).show();
 
                 if (Arrays.asList(wifis).contains("DisarmHotspot")) {
                     // true
-                    Toast.makeText(WiFiDirectActivity.this, "DisarmHotspot Found !!!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ConnectService.this, "DisarmHotspot Found !!!!", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -142,21 +142,21 @@ public class ConnectService extends Service {
                 wifi.setWifiEnabled(false);
 
                 // Check Hotspot on or not
-                b = ApManager.isApOn(this);
+                b = ApManager.isApOn(ConnectService.this);
                 if (!b) {
-                    ApManager.configApState(WiFiDirectActivity.this);
+                    ApManager.configApState(ConnectService.this);
                 }
-                Toast.makeText(WiFiDirectActivity.this, "Hotspot Active", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConnectService.this, "Hotspot Active", Toast.LENGTH_SHORT).show();
             } else {
                 // Change Hotspot State and enable WIFI to true
-                ApManager.configApState(WiFiDirectActivity.this);
+                ApManager.configApState(ConnectService.this);
                 wifi.setWifiEnabled(true);
-                Toast.makeText(WiFiDirectActivity.this, "Wifi Active", Toast.LENGTH_SHORT).show();
-                Toast.makeText(WiFiDirectActivity.this, "Searching for DisarmHotspot !!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConnectService.this, "Wifi Active", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConnectService.this, "Searching for DisarmHotspot !!!!", Toast.LENGTH_SHORT).show();
 
                 if (Arrays.asList(wifis).contains("DisarmHotspot")) {
                     // true
-                    Toast.makeText(WiFiDirectActivity.this, "DisarmHotspot Found !!!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ConnectService.this, "DisarmHotspot Found !!!!", Toast.LENGTH_LONG).show();
                 }
             }
 

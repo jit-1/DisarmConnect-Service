@@ -7,7 +7,6 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5763c5d7-ed2a-4e26-93a9-86db6c7b9aee" name="Default" comment="" />
@@ -66,21 +65,21 @@
       <file leaf-file-name="ConnectService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jit/connector_service/ConnectService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7605634">
-              <caret line="67" column="19" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.9521127">
+              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
               <folding>
-                <element signature="e#1697#3037#0" expanded="true" />
-                <element signature="e#3036#3037#0" expanded="true" />
-                <element signature="e#3427#3554#0" expanded="true" />
-                <element signature="e#3553#3554#0" expanded="true" />
-                <element signature="e#3611#4932#0" expanded="true" />
-                <element signature="e#4931#4932#0" expanded="true" />
-                <element signature="e#5951#8626#0" expanded="true" />
-                <element signature="e#6683#8146#0" expanded="true" />
-                <element signature="e#8145#8146#0" expanded="true" />
-                <element signature="e#8266#8552#0" expanded="true" />
-                <element signature="e#8551#8552#0" expanded="true" />
-                <element signature="e#8625#8626#0" expanded="true" />
+                <element signature="e#1683#2995#0" expanded="true" />
+                <element signature="e#2994#2995#0" expanded="true" />
+                <element signature="e#3385#3512#0" expanded="true" />
+                <element signature="e#3511#3512#0" expanded="true" />
+                <element signature="e#3569#4881#0" expanded="true" />
+                <element signature="e#4880#4881#0" expanded="true" />
+                <element signature="e#5900#8575#0" expanded="true" />
+                <element signature="e#6632#8095#0" expanded="true" />
+                <element signature="e#8094#8095#0" expanded="true" />
+                <element signature="e#8215#8501#0" expanded="true" />
+                <element signature="e#8500#8501#0" expanded="true" />
+                <element signature="e#8574#8575#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1913,21 +1912,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jit/connector_service/ConnectService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7605634">
-          <caret line="67" column="19" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.9521127">
+          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
           <folding>
-            <element signature="e#1697#3037#0" expanded="true" />
-            <element signature="e#3036#3037#0" expanded="true" />
-            <element signature="e#3427#3554#0" expanded="true" />
-            <element signature="e#3553#3554#0" expanded="true" />
-            <element signature="e#3611#4932#0" expanded="true" />
-            <element signature="e#4931#4932#0" expanded="true" />
-            <element signature="e#5951#8626#0" expanded="true" />
-            <element signature="e#6683#8146#0" expanded="true" />
-            <element signature="e#8145#8146#0" expanded="true" />
-            <element signature="e#8266#8552#0" expanded="true" />
-            <element signature="e#8551#8552#0" expanded="true" />
-            <element signature="e#8625#8626#0" expanded="true" />
+            <element signature="e#1683#2995#0" expanded="true" />
+            <element signature="e#2994#2995#0" expanded="true" />
+            <element signature="e#3385#3512#0" expanded="true" />
+            <element signature="e#3511#3512#0" expanded="true" />
+            <element signature="e#3569#4881#0" expanded="true" />
+            <element signature="e#4880#4881#0" expanded="true" />
+            <element signature="e#5900#8575#0" expanded="true" />
+            <element signature="e#6632#8095#0" expanded="true" />
+            <element signature="e#8094#8095#0" expanded="true" />
+            <element signature="e#8215#8501#0" expanded="true" />
+            <element signature="e#8500#8501#0" expanded="true" />
+            <element signature="e#8574#8575#0" expanded="true" />
           </folding>
         </state>
       </provider>
