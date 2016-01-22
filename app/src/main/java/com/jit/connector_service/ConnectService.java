@@ -34,7 +34,7 @@ public class ConnectService extends Service {
     boolean b,c,wifiState;
     Context context;
     Timer myTimer,myTimer1;
-    CoordinatorLayout coordinatorLayout;
+    //CoordinatorLayout coordinatorLayout;
     Handler handler;
 
 
