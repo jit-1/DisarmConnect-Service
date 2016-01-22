@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class ConnectService extends Service {
     // Variable declarations
@@ -41,11 +42,34 @@ public class ConnectService extends Service {
     public void onCreate(){
         super.onCreate();
         Toast.makeText(this,"Service Created",Toast.LENGTH_LONG).show();
+
+
+
+
     }
+
 
     @Override
     public void onStart(Intent intent,int startId){
-        Toast.makeText(this,"Service Started",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Wifi Service Started",Toast.LENGTH_LONG).show();
+
+        wifi =(WifiManager)getSystemService(Context.WIFI_SERVICE);
+        wifiReciever = new WifiScanReceiver();
+
+        wifi.startScan();
+
+        // Run Thread for Switching Mode
+        myTimer = new Timer();
+        myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                TimerMethod();
+            }
+
+        }, 0, 20000);
+
+
+
     }
     @Override
     public void onDestroy(){
