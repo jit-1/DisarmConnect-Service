@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
+import android.os.Handler;
 import android.os.IBinder;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,7 +35,7 @@ public class ConnectService extends Service {
     Context context;
     Timer myTimer,myTimer1;
     CoordinatorLayout coordinatorLayout;
-
+    Handler handler;
 
 
 
@@ -51,11 +52,16 @@ public class ConnectService extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
+        handler = new Handler();
         Toast.makeText(this,"Service Created",Toast.LENGTH_LONG).show();
 
 
 
 
+    }
+
+    private void runOnUiThread(Runnable runnable) {
+        handler.post(runnable);
     }
 
     private void TimerMethod()
@@ -65,7 +71,7 @@ public class ConnectService extends Service {
 
         //We call the method that will work with the UI
         //through the runOnUiThread method.
-        this(Timer_Tick);
+        this.runOnUiThread(Timer_Tick);
     }
 
 
