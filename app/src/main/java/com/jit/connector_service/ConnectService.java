@@ -1,5 +1,6 @@
 package com.jit.connector_service;
 
+<<<<<<< HEAD
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -14,14 +15,25 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+=======
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.net.wifi.WifiManager;
+import android.os.IBinder;
+>>>>>>> 5f331dc7d90fd5c81dbf9968e5d0665280d2350a
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+<<<<<<< HEAD
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+=======
+import java.util.Timer;
+>>>>>>> 5f331dc7d90fd5c81dbf9968e5d0665280d2350a
 
 public class ConnectService extends Service {
     // Variable declarations
@@ -34,8 +46,13 @@ public class ConnectService extends Service {
     boolean b,c,wifiState;
     Context context;
     Timer myTimer,myTimer1;
+<<<<<<< HEAD
     //CoordinatorLayout coordinatorLayout;
     Handler handler;
+=======
+    CoordinatorLayout coordinatorLayout;
+
+>>>>>>> 5f331dc7d90fd5c81dbf9968e5d0665280d2350a
 
 
 
@@ -52,6 +69,7 @@ public class ConnectService extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
+<<<<<<< HEAD
         handler = new Handler();
         Toast.makeText(this,"Service Created",Toast.LENGTH_LONG).show();
 
@@ -174,6 +192,17 @@ public class ConnectService extends Service {
     public void onDestroy(){
         wifi.disconnect();
         Toast.makeText(getApplicationContext(), "Disconnected", Toast.LENGTH_SHORT).show();
+=======
+        Toast.makeText(this,"Service Created",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStart(Intent intent,int startId){
+        Toast.makeText(this,"Service Started",Toast.LENGTH_LONG).show();
+    }
+    @Override
+    public void onDestroy(){
+>>>>>>> 5f331dc7d90fd5c81dbf9968e5d0665280d2350a
         Toast.makeText(this,"Service Destroyed",Toast.LENGTH_LONG).show();
 
     }
@@ -184,6 +213,7 @@ public class ConnectService extends Service {
         // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
+<<<<<<< HEAD
 
 
     private class WifiScanReceiver extends BroadcastReceiver {
@@ -279,4 +309,6 @@ public class ConnectService extends Service {
 
 
 
+=======
+>>>>>>> 5f331dc7d90fd5c81dbf9968e5d0665280d2350a
 }
