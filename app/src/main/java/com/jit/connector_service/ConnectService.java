@@ -7,21 +7,26 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.IBinder;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 public class ConnectService extends Service {
     // Variable declarations
@@ -52,7 +57,9 @@ public class ConnectService extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
-
+        wifi =(WifiManager)getSystemService(Context.WIFI_SERVICE);
+        wifiReciever = new WifiScanReceiver();
+        wifi.startScan();
         handler = new Handler();
         Toast.makeText(this,"Service Created",Toast.LENGTH_LONG).show();
 
@@ -136,39 +143,7 @@ public class ConnectService extends Service {
 
     }
 
-    private Runnable Timer_Tick = new Runnable() {
-        public void run() {
 
-            //This method runs in the same thread as the UI.
-
-            //Do something to the UI thread here
-            wifiState = (Math.random() < 0.5);
-
-            // WifiState - 1 (Is Hotspot) || 0 - (CheckHotspot)
-            if (wifiState) {
-                wifi.setWifiEnabled(false);
-
-                // Check Hotspot on or not
-                b = ApManager.isApOn(ConnectService.this);
-                if (!b) {
-                    ApManager.configApState(ConnectService.this);
-                }
-                Toast.makeText(ConnectService.this, "Hotspot Active", Toast.LENGTH_SHORT).show();
-            } else {
-                // Change Hotspot State and enable WIFI to true
-                ApManager.configApState(ConnectService.this);
-                wifi.setWifiEnabled(true);
-                Toast.makeText(ConnectService.this, "Wifi Active", Toast.LENGTH_SHORT).show();
-                Toast.makeText(ConnectService.this, "Searching for DisarmHotspot !!!!", Toast.LENGTH_SHORT).show();
-
-                if (Arrays.asList(wifis).contains("DisarmHotspot")) {
-                    // true
-                    Toast.makeText(ConnectService.this, "DisarmHotspot Found !!!!", Toast.LENGTH_LONG).show();
-                }
-            }
-
-        }
-    };
 
 
     @Override
@@ -186,6 +161,49 @@ public class ConnectService extends Service {
 
         // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+
+    public void testAp(MenuItem item) {
+
+        b = ApManager.isApOn(ConnectService.this); // check Ap state :boolean
+        c = ApManager.configApState(ConnectService.this); // change Ap state :boolean
+        boolean isWifiEnable = wifi.isWifiEnabled();
+        if(!isWifiEnable) {
+            if (b) {
+                Toast.makeText(this, "Hotspot off", Toast.LENGTH_SHORT).show();
+              //  Logger.addRecordToLog("Hotspot Switched Off");
+            } else {
+                if (c) {
+                    Toast.makeText(this, "Hotspot state changed (Switch On)", Toast.LENGTH_SHORT).show();
+                  //  Logger.addRecordToLog("Hotspot Switched On");
+                }
+            }
+        }
+        else {
+            Toast.makeText(this, "Disabling Wifi. Press Hotspot Button again !!", Toast.LENGTH_LONG).show();
+            wifi.setWifiEnabled(false);
+        }
+
+        //Change Name of the Created Hotspot
+        try {
+            Method getConfigMethod = wifi.getClass().getMethod("getWifiApConfiguration");
+            WifiConfiguration wifiConfig = (WifiConfiguration) getConfigMethod.invoke(wifi);
+
+            String wifiName = "DisarmHotspot";
+            wifiConfig.SSID = "\"" + wifiName + "\"";
+            wifiConfig.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+
+            Method setConfigMethod = wifi.getClass().getMethod("setWifiApConfiguration", WifiConfiguration.class);
+            setConfigMethod.invoke(wifi, wifiConfig);
+
+
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
