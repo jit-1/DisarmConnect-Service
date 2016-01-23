@@ -15,20 +15,13 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.net.wifi.WifiManager;
-import android.os.IBinder;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Timer;
 
 public class ConnectService extends Service {
     // Variable declarations
@@ -79,11 +72,11 @@ public class ConnectService extends Service {
 
         //We call the method that will work with the UI
         //through the runOnUiThread method.
-        this.runOnUiThread(Timer_Tick);
+        this.runOnUiThread(TimerTick);
     }
 
 
-    private Runnable Timer_Tick = new Runnable() {
+    private Runnable TimerTick = new Runnable() {
         public void run() {
 
             //This method runs in the same thread as the UI.
