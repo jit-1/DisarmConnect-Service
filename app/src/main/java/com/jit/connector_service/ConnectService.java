@@ -35,7 +35,7 @@ public class ConnectService extends Service {
     TextView my_wifi_name;
     WifiManager wifi;
     String wifis[];
-    WifiScanReceiver wifiReciever;
+    WifiScanReceiver wifiReceiver;
     boolean b,c,wifiState;
     Context context;
     Timer myTimer,myTimer1;
@@ -58,7 +58,7 @@ public class ConnectService extends Service {
     public void onCreate(){
         super.onCreate();
         wifi =(WifiManager)getSystemService(Context.WIFI_SERVICE);
-        wifiReciever = new WifiScanReceiver();
+        wifiReceiver = new WifiScanReceiver();
         wifi.startScan();
         handler = new Handler();
         Toast.makeText(this,"Service Created",Toast.LENGTH_LONG).show();
@@ -124,10 +124,10 @@ public class ConnectService extends Service {
     public void onStart(Intent intent,int startId){
         Toast.makeText(this,"Wifi Service Started",Toast.LENGTH_LONG).show();
 
-        wifi =(WifiManager)getSystemService(Context.WIFI_SERVICE);
-        wifiReciever = new WifiScanReceiver();
+      //  wifi =(WifiManager)getSystemService(Context.WIFI_SERVICE);
+      //  wifiReceiver = new WifiScanReceiver();
 
-        wifi.startScan();
+     //   wifi.startScan();
 
         // Run Thread for Switching Mode
         myTimer = new Timer();
