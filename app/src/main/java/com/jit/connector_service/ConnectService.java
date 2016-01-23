@@ -13,6 +13,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,7 +42,7 @@ public class ConnectService extends Service {
     Timer myTimer,myTimer1;
 
     //CoordinatorLayout coordinatorLayout;
-    Handler handler;
+    Handler handler=new Handler();
 
 
 
@@ -57,13 +58,7 @@ public class ConnectService extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
-        wifi =(WifiManager)getSystemService(Context.WIFI_SERVICE);
-        wifiReceiver = new WifiScanReceiver();
-        wifi.startScan();
-        handler = new Handler();
         Toast.makeText(this,"Service Created",Toast.LENGTH_LONG).show();
-
-
 
 
     }
@@ -107,13 +102,16 @@ public class ConnectService extends Service {
                 wifi.setWifiEnabled(true);
                 Toast.makeText(ConnectService.this, "Wifi Active", Toast.LENGTH_SHORT).show();
                 Toast.makeText(ConnectService.this, "Searching for DisarmHotspot !!!!", Toast.LENGTH_SHORT).show();
+                try {
+                    if (Arrays.asList(wifis).contains("DisarmHotspot")) {
+                        // true
+                        Toast.makeText(ConnectService.this, "DisarmHotspot Found !!!!", Toast.LENGTH_LONG).show();
+                    }
+                }catch (Exception e) {
+                    Log.d("Blank wifis",e.toString());
 
-                if (Arrays.asList(wifis).contains("DisarmHotspot")) {
-                    // true
-                    Toast.makeText(ConnectService.this, "DisarmHotspot Found !!!!", Toast.LENGTH_LONG).show();
                 }
             }
-
         }
     };
 
@@ -124,10 +122,10 @@ public class ConnectService extends Service {
     public void onStart(Intent intent,int startId){
         Toast.makeText(this,"Wifi Service Started",Toast.LENGTH_LONG).show();
 
-      //  wifi =(WifiManager)getSystemService(Context.WIFI_SERVICE);
-      //  wifiReceiver = new WifiScanReceiver();
+        wifi =(WifiManager)getSystemService(Context.WIFI_SERVICE);
+        wifiReceiver = new WifiScanReceiver();
 
-     //   wifi.startScan();
+        wifi.startScan();
 
         // Run Thread for Switching Mode
         myTimer = new Timer();
@@ -140,7 +138,6 @@ public class ConnectService extends Service {
         }, 0, 20000);
 
 
-
     }
 
 
@@ -148,9 +145,10 @@ public class ConnectService extends Service {
 
     @Override
     public void onDestroy(){
-        wifi.disconnect();
+
+        myTimer.cancel();
+        handler.removeCallbacks(TimerTick);
         Toast.makeText(getApplicationContext(), "Disconnected", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this,"Service Created",Toast.LENGTH_LONG).show();
     }
 
 
@@ -216,7 +214,7 @@ public class ConnectService extends Service {
 
             for(int i = 0; i < wifiScanList.size(); i++){
                 wifis[i] = ((wifiScanList.get(i)).SSID);
-
+                Log.d("WIFI_AP_LIST",wifis[i]);
             }
 
             lv.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, wifis));
