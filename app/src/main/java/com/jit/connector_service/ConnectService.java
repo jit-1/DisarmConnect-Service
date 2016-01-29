@@ -210,11 +210,13 @@ public class ConnectService extends Service {
 
         public void onReceive(Context c, Intent intent) {
             final List<ScanResult> wifiScanList = wifi.getScanResults();
+
             wifis = new String[wifiScanList.size()];
 
             for(int i = 0; i < wifiScanList.size(); i++){
                 wifis[i] = ((wifiScanList.get(i)).SSID);
                 Log.d("WIFI_AP_LIST",wifis[i]);
+                //Debug : Returning NULL for some reason 
             }
 
             lv.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, wifis));
