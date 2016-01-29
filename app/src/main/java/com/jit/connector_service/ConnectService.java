@@ -216,70 +216,9 @@ public class ConnectService extends Service {
             for(int i = 0; i < wifiScanList.size(); i++){
                 wifis[i] = ((wifiScanList.get(i)).SSID);
                 Log.d("WIFI_AP_LIST",wifis[i]);
-                //Debug : Returning NULL for some reason 
+                //Debug : Returning NULL for some reason
             }
 
-            lv.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, wifis));
-
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(ConnectService.this);
-
-                    // Setting Dialog Title
-                    alertDialog.setTitle("Connect");
-                    for (int i = 0; i < wifis.length; i++) {
-
-                        // Setting Dialog Message
-                        alertDialog
-                                .setMessage("Connect to " + wifis[position]);
-                    }
-
-                    // Setting Positive "Yes" Button
-                    alertDialog.setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            // Write your code here to invoke YES event
-                            Toast.makeText(getApplicationContext(), "Connecting", Toast.LENGTH_SHORT).show();
-
-                            //Connecting to specific network
-                            WifiConfiguration conf = new WifiConfiguration();
-
-                            conf.SSID = "\" " + wifis[position] + "\"";
-                            conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-
-
-
-                            wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-                            wifi.addNetwork(conf);
-
-                            List<WifiConfiguration> list = wifi.getConfiguredNetworks();
-                            for (WifiConfiguration i : list) {
-                                if (i.SSID != null && i.SSID.equals("\"" + wifis[position] + "\"")) {
-                                    wifi.disconnect();
-                                    wifi.enableNetwork(i.networkId, true);
-                                    wifi.reconnect();
-                                    Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
-
-                                    break;
-                                }
-                            }
-
-                        }
-                    });
-
-                    // Setting Negative "NO" Button
-                    alertDialog.setNegativeButton("Disconnect", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Write your code here to invoke NO event
-
-                            dialog.cancel();
-                        }
-
-                    });
-                    alertDialog.show();
-                }
-            });
 
         }
 
