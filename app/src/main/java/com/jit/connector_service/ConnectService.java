@@ -107,19 +107,20 @@ public class ConnectService extends Service {
 
                     WifiConfiguration conf = new WifiConfiguration();
                     conf.SSID = "\"" + networkSSID + "\"";
+                    conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE); // Open Network usd for now
+                    wifi.addNetwork(conf);
+                    List<WifiConfiguration> list = wifi.getConfiguredNetworks();
+                    for( WifiConfiguration i : list ) {
+                        if(i.SSID != null && i.SSID.equals("\"" + networkSSID + "\"")) {
+                            wifi.disconnect();
+                            Toast.makeText(ConnectService.this, networkSSID+ " Found !!!!", Toast.LENGTH_LONG).show();
+                            wifi.enableNetwork(i.networkId, true);
+                            wifi.reconnect();
 
-
-
-                    if (Arrays.asList(wifis).contains("DisarmHotspot")) {
-                        // true
-
-
-
-                        Toast.makeText(ConnectService.this, "DisarmHotspot Found !!!!", Toast.LENGTH_LONG).show();
-
-
-
+                            break;
+                        }
                     }
+
                 }catch (Exception e) {
                     Log.d("Blank wifis",e.toString());
 
