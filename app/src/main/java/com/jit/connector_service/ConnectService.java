@@ -40,6 +40,7 @@ public class ConnectService extends Service {
     boolean b,c,wifiState;
     Context context;
     Timer myTimer,myTimer1;
+    String networkSSID = "DisarmHotspot"; // AP to search & connect
 
     //CoordinatorLayout coordinatorLayout;
     Handler handler=new Handler();
@@ -103,9 +104,21 @@ public class ConnectService extends Service {
                 Toast.makeText(ConnectService.this, "Wifi Active", Toast.LENGTH_SHORT).show();
                 Toast.makeText(ConnectService.this, "Searching for DisarmHotspot !!!!", Toast.LENGTH_SHORT).show();
                 try {
+
+                    WifiConfiguration conf = new WifiConfiguration();
+                    conf.SSID = "\"" + networkSSID + "\"";
+
+
+
                     if (Arrays.asList(wifis).contains("DisarmHotspot")) {
                         // true
+
+
+
                         Toast.makeText(ConnectService.this, "DisarmHotspot Found !!!!", Toast.LENGTH_LONG).show();
+
+
+
                     }
                 }catch (Exception e) {
                     Log.d("Blank wifis",e.toString());
