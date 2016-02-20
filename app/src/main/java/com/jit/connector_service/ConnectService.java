@@ -44,7 +44,7 @@ public class ConnectService extends Service {
 
     //CoordinatorLayout coordinatorLayout;
     Handler handler=new Handler();
-
+    BroadcastReceiver mReceiver;
 
 
 
@@ -53,6 +53,26 @@ public class ConnectService extends Service {
     // isHotspot - acting as AP
     boolean searchHotspot = true, isHotspot = false;
 
+    public class WifiScanReceiver extends BroadcastReceiver {
+
+        public void onReceive(Context c, Intent intent) {
+            final List<ScanResult> wifiScanList = wifi.getScanResults();
+
+            wifis = new String[wifiScanList.size()];
+
+            for(int i = 0; i < wifiScanList.size(); i++){
+                wifis[i] = ((wifiScanList.get(i)).SSID);
+                Log.d("WIFI_AP_LIST",wifis[i]);
+                //Debug : Returning NULL for some reason
+                Toast.makeText(getApplicationContext(),"Adapter",Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
+
+
+    }
+
 
     public ConnectService() {
     }
@@ -60,7 +80,14 @@ public class ConnectService extends Service {
     public void onCreate(){
         super.onCreate();
         Toast.makeText(this,"Service Created",Toast.LENGTH_LONG).show();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+        mReceiver=new WifiScanReceiver();
+        registerReceiver(mReceiver,filter );
+        wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 
+
+        wifi.startScan();
 
     }
 
@@ -100,7 +127,7 @@ public class ConnectService extends Service {
             } else {
                 // Change Hotspot State and enable WIFI to true
                 ApManager.configApState(ConnectService.this);
-                wifi.setWifiEnabled(true);
+                //wifi.setWifiEnabled(true);
                 Toast.makeText(ConnectService.this, "Wifi Active", Toast.LENGTH_SHORT).show();
                 Toast.makeText(ConnectService.this, "Searching for DisarmHotspot !!!!", Toast.LENGTH_SHORT).show();
                 try {
@@ -108,7 +135,7 @@ public class ConnectService extends Service {
                     WifiConfiguration conf = new WifiConfiguration();
                     conf.SSID = "\"" + networkSSID + "\"";
                     conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE); // Open Network usd for now
-                    wifi.addNetwork(conf);
+                    //wifi.addNetwork(conf);
                     List<WifiConfiguration> list = wifi.getConfiguredNetworks();
                     for( WifiConfiguration i : list ) {
                         if(i.SSID != null && i.SSID.equals("\"" + networkSSID + "\"")) {
@@ -135,11 +162,10 @@ public class ConnectService extends Service {
     @Override
     public void onStart(Intent intent,int startId){
         Toast.makeText(this,"Wifi Service Started",Toast.LENGTH_LONG).show();
+        //wifi =(WifiManager)getSystemService(Context.WIFI_SERVICE);
+        //wifiReceiver = new WifiScanReceiver();
 
-        wifi =(WifiManager)getSystemService(Context.WIFI_SERVICE);
-        wifiReceiver = new WifiScanReceiver();
-
-        wifi.startScan();
+        //wifi.startScan();
 
         // Run Thread for Switching Mode
         myTimer = new Timer();
@@ -156,13 +182,13 @@ public class ConnectService extends Service {
 
 
 
-
     @Override
     public void onDestroy(){
 
         myTimer.cancel();
         handler.removeCallbacks(TimerTick);
         Toast.makeText(getApplicationContext(), "Disconnected", Toast.LENGTH_SHORT).show();
+        this.unregisterReceiver(mReceiver);
     }
 
 
@@ -220,23 +246,5 @@ public class ConnectService extends Service {
 
 
 
-    private class WifiScanReceiver extends BroadcastReceiver {
-
-        public void onReceive(Context c, Intent intent) {
-            final List<ScanResult> wifiScanList = wifi.getScanResults();
-
-            wifis = new String[wifiScanList.size()];
-
-            for(int i = 0; i < wifiScanList.size(); i++){
-                wifis[i] = ((wifiScanList.get(i)).SSID);
-                Log.d("WIFI_AP_LIST",wifis[i]);
-                //Debug : Returning NULL for some reason
-            }
-
-
-        }
-
-
-    }
 
 }
